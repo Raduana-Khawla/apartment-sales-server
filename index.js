@@ -29,14 +29,9 @@ client.connect((err) => {
   const reviewCollection = client.db("apartmentSales").collection("review");
 
   //add serviceCollection
-  app.post("/addProperties", async (req, res) => {
+  app.post("/addServices", async (req, res) => {
     console.log(req.body);
     const result = await serviceCollection.insertOne(req.body);
-    res.send(result);
-  });
-  // get all properties
-  app.get("/allProperties", async (req, res) => {
-    const result = await serviceCollection.find({}).toArray();
     res.send(result);
   });
 
@@ -45,9 +40,13 @@ client.connect((err) => {
     const result = await serviceCollection.find({}).toArray();
     res.send(result);
   });
-
-  // single Property
-  app.get("/singleProperty/:id", async (req, res) => {
+  // get all ServiceItems
+  app.get("/allServiceItems", async (req, res) => {
+    const result = await serviceCollection.find({}).toArray();
+    res.send(result);
+  });
+  // single service
+  app.get("/singleService/:id", async (req, res) => {
     console.log(req.params.id);
     const result = await serviceCollection
       .find({ _id: ObjectId(req.params.id) })
@@ -55,7 +54,6 @@ client.connect((err) => {
     res.send(result[0]);
     console.log(result);
   });
-
   // insert order and
 
   app.post("/addOrders", async (req, res) => {
@@ -74,7 +72,7 @@ client.connect((err) => {
   });
 
   // review
-  app.post("/addSReview", async (req, res) => {
+  app.post("/addReview", async (req, res) => {
     const result = await reviewCollection.insertOne(req.body);
     res.send(result);
   });
