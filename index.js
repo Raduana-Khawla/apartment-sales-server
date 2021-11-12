@@ -24,6 +24,9 @@ app.get("/", (req, res) => {
 
 client.connect((err) => {
   const serviceCollection = client.db("apartmentSales").collection("services");
+  const serviceItemsCollection = client
+    .db("apartmentSales")
+    .collection("items");
   const usersCollection = client.db("apartmentSales").collection("users");
   const ordersCollection = client.db("apartmentSales").collection("orders");
   const reviewCollection = client.db("apartmentSales").collection("review");
@@ -42,7 +45,7 @@ client.connect((err) => {
   });
   // get all ServiceItems
   app.get("/allServiceItems", async (req, res) => {
-    const result = await serviceCollection.find({}).toArray();
+    const result = await serviceItemsCollection.find({}).toArray();
     res.send(result);
   });
   // single service
@@ -71,9 +74,14 @@ client.connect((err) => {
     res.send(result);
   });
 
-  // review
+  //post review
   app.post("/addReview", async (req, res) => {
     const result = await reviewCollection.insertOne(req.body);
+    res.send(result);
+  });
+  //get review
+  app.get("/addReview", async (req, res) => {
+    const result = await reviewCollection.find({}).toArray();
     res.send(result);
   });
 
@@ -104,7 +112,14 @@ client.connect((err) => {
     console.log(result);
     res.send(result);
   });
-
+  //order delete
+  app.delete("/deleteOrder/:id", async (req, res) => {
+    const result = await ordersCollection.deleteOne({
+      _id: ObjectId(req.params.id),
+    });
+    // console.log(result);
+    res.send(result);
+  });
   /// all order
   app.get("/allOrders", async (req, res) => {
     // console.log("hello");
