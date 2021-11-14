@@ -149,13 +149,15 @@ async function run() {
     // await client.close();
   }
 }
-// run().catch(console.dir);
+
+run().catch(console.dir);
 
 app.get("/", (req, res) => {
   res.send("Running Noor Construction");
 });
 
-app.listen(port, () => {
-  console.log("Running Noor Construction");
+app.listen(port, (err) => {
+  if (err) console.log("error, err");
 });
+
 // app.listen(process.env.PORT || port);
