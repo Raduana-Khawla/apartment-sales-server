@@ -6,7 +6,7 @@ Apartment sales
 
 Noor Construction
 
-Live-site-link: https://apartment-sales.web.app/
+Live-site-link: https://apartment-sales.web.app/home
 
 # Project of Apartment Sales Website.
 
