@@ -6,6 +6,7 @@ const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectId;
 
 const port = process.env.PORT || 8000;
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -97,16 +98,16 @@ async function run() {
       });
       //  make admin
 
-      // app.put("/makeAdmin", async (req, res) => {
-      //   const filter = { email: req.body.email };
-      //   const result = await usersCollection.find(filter).toArray();
-      //   if (result) {
-      //     const documents = await usersCollection.updateOne(filter, {
-      //       $set: { role: "admin" },
-      //     });
-      //     console.log(documents);
-      //   }
-      // });
+      app.put("/makeAdmin", async (req, res) => {
+        const filter = { email: req.body.email };
+        const result = await usersCollection.find(filter).toArray();
+        if (result) {
+          const documents = await usersCollection.updateOne(filter, {
+            $set: { role: "admin" },
+          });
+          console.log(documents);
+        }
+      });
 
       // check admin or not
       app.get("/checkAdmin/:email", async (req, res) => {
